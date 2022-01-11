@@ -21,11 +21,13 @@ export default function defineStore(options={}){
 			keys(getters).forEach( key => storage.getters[key] = getters[key](defaultOptions.state));
 		};
 		storage.dispatch = async function(key,payload){
-			return await actions[key]({
+			const data = await actions[key]({
 				state:defaultOptions.state,
 				commit:storage.commit,
 				dispatch:storage.dispatch
 			},payload);
+			keys(getters).forEach( key => storage.getters[key] = getters[key](defaultOptions.state));
+			return data;
 		}
 	}
 	init();

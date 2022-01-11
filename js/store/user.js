@@ -27,11 +27,14 @@ const users = defineStore({
 			state.users = [...state.users,user]
 		},
 		setIdx:(state,uidx)=> state.idx = uidx,
+		reset:(state)=> state = defaultState()
 	},
 	actions:{
 		reset:({state})=>{
-			console.log(state);
-			state = defaultState();
+			state.users = [];
+			state.idx = 0;
+			// state = {...state,...defaultState()};
+			// console.log(state);
 		}
 	}
 });
