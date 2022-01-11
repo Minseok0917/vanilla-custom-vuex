@@ -11,6 +11,12 @@ function store(defineOptions){
 	const cache = {
 		state:[...defaultOptions.state],
 		getters:{},
+		commit(){
+
+		},
+		dispatch(){
+
+		}
 	};
 
 	function init(){
@@ -32,9 +38,22 @@ function store(defineOptions){
 				return cache.getters[key];
 			}
 		});
-		// const cacheAddGetters = (key) => cache.getters[key] = getters[key](state);
-		// getterKeys.forEach(cacheAddGetters);
 	}
 	init();
 	return defaultOptions;
 }
+
+/*
+
+mutaions 실행 시 getters 재 조회
+
+
+
+return 시 나와야 되는 값 
+
+state , getters 
+commit , dispatch 
+
+
+
+*/
