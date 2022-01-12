@@ -1,53 +1,26 @@
-import defineStore from '../core/store.js';
+import create from '../core/store.js';
 
-const defaultState = () => ({
-	users:[],
-	idx:0
-});
-
-const addUser = (() => {
-	let idx = 0;
-	return () => ({
-		idx:idx,
-		name:`user${idx++}`
-	});
-})();
-
-const users = defineStore({
-	state:defaultState(),
+const useStore = create({
+	state:{
+		count:0,
+	},
 	getters:{
-		getUsers:(state)=>state.users,
-		getUser:(state)=>{
-			const idx = state.idx;
-			return state.users.find(({idx:uidx}) => uidx === idx );
-		}
+		getCount:(state)=>state.count
 	},
 	mutations:{
-		addUser:(state,user)=>{
-			state.users = [...state.users,user]
-		},
-		setIdx:(state,uidx)=> state.idx = uidx,
-		reset:(state)=> state = defaultState()
+		setCount:(state,payload)=>(state.count = payload)
 	},
 	actions:{
-		reset:({state})=>{
-			state.users = [];
-			state.idx = 0;
-			// state = {...state,...defaultState()};
-			// console.log(state);
+		timeout:async function({state,getters,commit}){
+			return await new Promise( (res,rej) =>{
+				setTimeout(function(){
+					commit('setCount',10);
+					res(state.count);
+				},getters['getCount']*1000);
+			})
 		}
 	}
 });
 
 
-(async()=>{
-	console.log(users.getters['getUsers']);
-	users.commit('addUser',addUser())
-	users.commit('addUser',addUser())
-	console.log(users.getters['getUser']);
-	users.commit('setIdx',1);
-	console.log(users.getters['getUser']);
-	console.log(users.getters['getUsers']);
-	await users.dispatch('reset');
-	console.log(users.getters['getUsers']);
-})();
+export default useStore;

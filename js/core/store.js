@@ -23,6 +23,7 @@ export default function defineStore(options={}){
 		storage.dispatch = async function(key,payload){
 			const data = await actions[key]({
 				state:defaultOptions.state,
+				getters:storage.getters,
 				commit:storage.commit,
 				dispatch:storage.dispatch
 			},payload);
