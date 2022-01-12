@@ -6,7 +6,7 @@ export default function defineStore(options={}){
 		actions:{},
 		...options
 	};
-	const storage ={
+	const storage = {
 		getters:{},
 		commit(){},
 		dispatch(){}

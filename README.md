@@ -7,7 +7,7 @@
 (state,payload)
 
 ### actions 
-({state,getters,commit,dispatch})
+({state,getters,commit,dispatch},payload) 
 
 ```javascript
 // store/user
