@@ -1,5 +1,3 @@
-# vanilla-store-managment
-
 ### getters
 (state)
 
