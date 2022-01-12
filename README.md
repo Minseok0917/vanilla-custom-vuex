@@ -10,7 +10,8 @@
 ({state,getters,commit,dispatch})
 
 ```javascript
-import create from './store.js';
+// store/user
+import create from '../core/store.js';
 
 const useStore = create({
 	state:{
@@ -33,13 +34,19 @@ const useStore = create({
 		}
 	}
 });
-
-useStore.getters['getCount']; // 0
-useStore.commit('setCount',5);
-useStore.getters['getCount']; // 5
-(async()=>{
-	await useStore.dispatch('timeout'); // 10
-})();
-
 export default useStore;
+```
+
+``` javascript
+// app.js
+import userStore from './store/user.js';
+
+const userInit = async ()=>{
+	console.log(userStore.getters['getCount']); // 0 
+	userStore.commit('setCount',5);
+	console.log(userStore.getters['getCount']); // 5
+	console.log(await userStore.dispatch('timeout')); // 10
+};
+
+userInit();
 ```
